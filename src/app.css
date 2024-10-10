@@ -3,7 +3,8 @@
 @tailwind utilities;
 
 body {
-    background-color: rgb(250, 181, 181);
+    background-color: #343A40;
+    color: #dee2ff;
 }
 .roboto {
     font-family: "Roboto", sans-serif;

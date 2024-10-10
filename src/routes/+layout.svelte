@@ -32,9 +32,9 @@
 
 </script>
 
-<div>
+<div class='min-h-screen min-w-screen flex flex-col max-sm:flex-col-reverse'>
     {#if currentUser}
     <Navbar />
     {/if}
-    <slot />
+    <slot/>
 </div>

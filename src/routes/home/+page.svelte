@@ -1,52 +1,84 @@
 <script lang='ts'>
     import { onMount } from 'svelte';
-    import { getDatabase, ref, set, onValue } from "firebase/database";
+    import { collection, doc, getDocs, query, setDoc } from "firebase/firestore"; 
+    import { auth, db } from '$lib/firebase';
+	import { onAuthStateChanged, type User } from 'firebase/auth';
+	import { goto } from '$app/navigation';
+
     interface Profile {
         name: string;
         game: string;
         shinyHunts: number;
         totalEncounters: number;
     }
+    let userID: string;
 
     let profileList: Profile[] = [];
-    let newProfile = { name: '', game: '', shinyHunts: 0, totalEncounters: 0};
+    let newProfile = { 
+        name: '', 
+        game: '', 
+        shinyHunts: 0, 
+        totalEncounters: 0
+    };
+    
+    onMount(() => {
+        const unsubscribe = onAuthStateChanged(auth, async (user) => {
+            if (user) {
+                userID = user.uid;
+                const profileRef = collection(db, "users", userID, "profile");
+                const profileInfo = await getDocs(profileRef);
+                profileInfo.forEach((doc) => {
+                    let newProfile = doc.data() as Profile;
+                    profileList = [...profileList, newProfile];
+                })
+            } else {
+                alert("User signed out. Returning to login page.");
+                goto("/");
+            }
+        });
+        return () => unsubscribe();
+    })
 
-    function addProfile() {
-        console.log("Hey lol");
-}
+    const profileCount = async() => {
+        if (typeof userID === 'string') {
+            const profileRef = collection(db, "users", userID, "profile");
+            const querySnapshot = await getDocs(profileRef);
+            console.log(userID, querySnapshot);
+            return querySnapshot.size + 1;
+        }
+    };
+    async function logProfileCount() {
+        const count = await profileCount();  // Await the result of the async function
+        console.log("Profile Count:", count);
+    }   
+
+    async function addProfile() {
+        const profileID = "profile" + await profileCount();
+        if (typeof userID === 'string' && userID != '') {
+            try {
+                await setDoc(doc(db, "users", userID, "profile", profileID), newProfile);
+                alert("Successfully added profile!");
+            } catch (error) {
+                alert("Error adding profile. Please try again.");
+            }
+        } else {
+            alert("Profile data insufficient. Please fill out all fields.")
+        }
+    }
+    async function updateProfile() {
+        if (typeof userID === 'string') {
+            const profileRef = collection(db, "users", userID, "profile");
+            const profileInfo = await getDocs(profileRef);
+            profileList = [];
+            profileInfo.forEach((doc) => {
+                let newProfile = doc.data() as Profile;
+                profileList = [...profileList, newProfile];
+            })
+        }
+    }
+
 </script>
-<div class="min-h-screen">  
-    <main class="container mx-auto px-6 py-8">
-        <h1 class="text-3xl font-bold mb-6">Your Profiles</h1>
-        
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
-        {#each profileList as profile}
-            <div class="profile bg-white rounded-lg shadow-md p-6">
-            <h2 class="text-xl font-semibold mb-2">{profile.name} <img src='https://www.spriters-resource.com/resources/sheet_icons/24/26778.png?updated=1460949349' alt="{profile.name} avatar"> </h2>
-            <p class="text-gray-600 mb-4"> <span class='text-black font-semibold'> Game: </span> {profile.game}</p>
-            </div>
-        {/each}
-        </div>
-
-        <div class="bg-white rounded-lg shadow-md p-6">
-        <h2 class="text-2xl font-bold mb-4">Add New Profile</h2>
-        <form on:submit|preventDefault={addProfile} class="space-y-4">
-            <div>
-            <label for="shinyHunts" class="block text-sm font-medium text-gray-700">Name</label>
-            <input type="number" id="shinyHunts" bind:value={newProfile.name} required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-red-300 focus:ring focus:ring-red-200 focus:ring-opacity-50">
-            </div>
-            <div class="grid grid-cols-2 gap-4">
-            <div>
-                <label for="evHp" class="block text-sm font-medium text-gray-700">Game Name</label>
-                <input type="number" id="evHp" bind:value={newProfile.game} required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-red-300 focus:ring focus:ring-red-200 focus:ring-opacity-50">
-            </div>
-            </div>
-            <button type="submit" class="w-full bg-red-600 text-white py-2 px-4 rounded-md hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-opacity-50">
-            Add Pokémon
-            </button>
-        </form>
-        </div>
-    </main>
+<div class="">  
 </div>
 
 <style>
