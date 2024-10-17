@@ -1,6 +1,7 @@
 import { goto } from "$app/navigation";
 import { auth, googleProvider } from "$lib/firebase";
 import { createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signInWithRedirect, type User } from "firebase/auth";
+import { GoogleAuthProvider } from "firebase/auth/web-extension";
 import { writable } from "svelte/store";
 
 export const authStore = writable<{user: User | null}>({
@@ -13,9 +14,13 @@ export const authHandler = {
         goto("/");
     },
     loginWithGoogle: async () => {
-        console.log("Attemping login...");
-        await signInWithPopup(auth, googleProvider);
-        goto("/home");
+        try {
+            console.log("Attemping login...");
+            await signInWithPopup(auth, googleProvider);
+            goto("/collection");
+        } catch (error) {
+            console.error(error);
+        }
     },
     signUpUserWithEmailAndPassword: async (email: string, password: string) => {
         console.log("Attemping to sign up...");
@@ -31,7 +36,7 @@ export const authHandler = {
         console.log("Attemping to login...");
         try {
             await signInWithEmailAndPassword(auth, email, password);
-            await goto('/home').then(() => {alert("Login successful!")});
+            await goto('/collection');
         } catch (error) {
             alert("Invalid credentials. Please try again.")
         }

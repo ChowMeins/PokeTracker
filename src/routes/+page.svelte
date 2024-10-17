@@ -15,7 +15,7 @@
 
 </script>
 
-<div class='w-full min-h-screen flex'>
+<div class='w-full min-h-screen flex text-black'>
     <div class='max-sm:w-full w-2/3 h-full my-auto max-sm:my-0 mx-auto flex max-sm:flex-col-reverse drop-shadow-md'>
         <form class='w-[100%] h-fit bg-white grid my-auto mx-auto p-8'>
             <h1 class='roboto-bold text-center text-4xl'> Login </h1>
