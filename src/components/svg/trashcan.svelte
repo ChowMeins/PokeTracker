@@ -14,7 +14,7 @@
 		stroke-linecap="round"
 		stroke-linejoin="round"
 	></g><g id="SVGRepo_iconCarrier"
-		><title>70 Basic icons by Xicons.co</title><path
+		><path
 			d="M7,11.59H41a0,0,0,0,1,0,0V42.5a4,4,0,0,1-4,4H11a4,4,0,0,1-4-4V11.59a0,0,0,0,1,0,0Z"
 			fill="#f2a1a1"
 		></path><path d="M43,13H5A2,2,0,0,1,5,9H43A2,2,0,0,1,43,13Z" fill="#e76e6e"></path><path

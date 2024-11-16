@@ -2,10 +2,18 @@
 @tailwind components;
 @tailwind utilities;
 
+* {
+  scrollbar-color: rgb(105, 105, 105) rgba(0,0,0,0.5);
+  scrollbar-width: 10px;
+}
 body {
-    background-color: #343A40;
+    background-color: #1c1d1d;
     color: #dee2ff;
 }
+dialog::backdrop {
+  background-color: rgba(0, 0, 0, 0.7); /* Dark backdrop with 70% opacity */
+}
+
 .roboto {
     font-family: "Roboto", sans-serif;
     font-style: normal;
@@ -81,10 +89,8 @@ body {
     font-weight: 900;
     font-style: italic;
   }
-  
-.oswald {
-  font-family: "Oswald", sans-serif;
-  font-optical-sizing: auto;
-  font-style: normal;
-}
+  .bebas-neue{
+    font-family: "Bebas Neue", sans-serif;
+    font-style: normal;
+  }
   

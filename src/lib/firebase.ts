@@ -1,8 +1,8 @@
 // Import the functions you need from the SDKs you need
-import { PUBLIC_API_KEY, PUBLIC_AUTH_DOMAIN, PUBLIC_DB_URL, PUBLIC_PROJECT_ID, PUBLIC_STORAGE_BUCKET, PUBLIC_MESSAGING_SENDER_ID, PUBLIC_APP_ID, PUBLIC_MEASUREMENT_ID} from '$env/static/public';
+import { PUBLIC_API_KEY, PUBLIC_AUTH_DOMAIN, PUBLIC_DB_URL, PUBLIC_PROJECT_ID, PUBLIC_STORAGE_BUCKET, PUBLIC_MESSAGING_SENDER_ID, PUBLIC_APP_ID, PUBLIC_MEASUREMENT_ID} from '$env/static/public'
 import { deleteApp, getApps, initializeApp, type FirebaseApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
-import { GoogleAuthProvider} from 'firebase/auth';
+import { browserSessionPersistence, GoogleAuthProvider, inMemoryPersistence, setPersistence} from 'firebase/auth';
 import { getAuth } from 'firebase/auth';
 import { getFirestore } from 'firebase/firestore';
 // TODO: Add SDKs for Firebase products that you want to use
@@ -32,5 +32,6 @@ if(!getApps().length) {
 }
 
 export const auth = getAuth(app);
+setPersistence(auth, browserSessionPersistence)
 export const db = getFirestore(app);
 export const googleProvider = new GoogleAuthProvider();
