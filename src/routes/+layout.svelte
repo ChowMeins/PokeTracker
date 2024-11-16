@@ -2,12 +2,10 @@
     import "../app.css";
 	import Navbar from "../components/navbar.svelte";
     import type { User } from "firebase/auth";
-    import { getRedirectResult } from "firebase/auth";
     import { auth } from "$lib/firebase";
     import { authStore, loadingStore } from "../store/store";
-	import { onDestroy, onMount } from "svelte";
+	import { onMount } from "svelte";
 	import { goto } from "$app/navigation";
-	import { writable } from "svelte/store";
 	import type { LoadingState } from "$lib/data";
 	import LoadingSpinner from "../components/svg/loadingSpinner.svelte";
 	import { loadPokemon, pokemonList } from "../store/pokemonStore";
