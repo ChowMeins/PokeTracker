@@ -18,6 +18,7 @@
 	import Grass from "../../components/svg/grass.svelte";
 	import Confirm from "../../components/svg/confirm.svelte";
 	import Edit from "../../components/svg/edit.svelte";
+	import Settings from "../../components/svg/settings.svelte";
 
     // Current Collection
     let currentCollection: completedHunt[] = [];
@@ -622,18 +623,19 @@
                         <button class='py-2 text-wrap font-semibold {newPokemon?.pokemon ? 'text-green-400' : ''}' on:click={() => {changeOption(0);}}>  {newPokemon?.pokemon ? newPokemon.pokemon.name.charAt(0) + newPokemon.pokemon.name.slice(1).toLowerCase() : 'Pokemon'} </button>
                         <button class='py-2 text-wrap font-semibold {newPokemon?.game ? 'text-green-400' : ''}' on:click={()=>{changeOption(1);}}> {newPokemon?.game ? newPokemon?.game : "Game"} </button>
                         <button class='py-2 text-wrap font-semibold {newPokemon?.method ? 'text-green-400' : ''}' on:click={() => {changeOption(2);}}> {newPokemon?.method ? newPokemon?.method : "Method"} </button>
-                        <button class='py-2 text-wrap font-semibold {newPokemon?.dateCreated && newPokemon?.dateEnded ? 'text-green-400' : ''}' on:click={() => changeOption(3)}> Other Info</button>
+                        <button class='py-2 text-wrap font-semibold {newPokemon?.dateCreated && newPokemon?.dateEnded ? 'text-green-400' : ''}' on:click={() => changeOption(3)}> Other Info </button>
                     </div>
                     <div class='hidden w-[60px] max-sm:flex max-sm:flex-col'>
-                        <button class='flex mx-auto min-w-[56px] max-w-[56px] min-h-[56px] max-h-[56px] py-1' on:click={() => {changeOption(0);}}>
+                        <button class='w-fit h-fit flex mx-auto py-1' on:click={() => {changeOption(0);}}>
                             {#if newPokemon?.pokemon}
                             <img src={newPokemon.pokemon?.spriteUrl} alt={newPokemon.pokemon?.name} class="mx-auto h-full object-cover rounded-md {newPokemon.pokemon ? 'border-2 border-green-400' : ''}"/>
                             {:else}
                             <Pokeball className="mx-auto w-4/5 h-full  {newPokemon?.game ? "fill-green-500" : ""}"/>
                             {/if}
                         </button>
-                        <button class='min-w-[56px] max-w-[56px] h-fit mx-auto py-1' on:click={() => {changeOption(1);}}> <Gameboy className="m-auto w-[70%] {newPokemon?.game ? "fill-green-500" : ""}"/> </button>
-                        <button class='min-w-[56px] max-w-[56px] h-fit mx-auto py-1' on:click={() => {changeOption(2);}}> <Grass className="m-auto w-3/5 {newPokemon?.method ? "fill-green-500" : ""}" /> </button>
+                        <button class='w-fit h-fit mx-auto py-4' on:click={() => {changeOption(1);}}> <Gameboy className="m-auto w-[40px] h-[40px] {newPokemon?.game ? "fill-green-500" : ""}"/> </button>
+                        <button class='w-fit h-fit mx-auto py-4' on:click={() => {changeOption(2);}}> <Grass className="m-auto w-[40px] h-[40px] {newPokemon?.method ? "fill-green-500" : ""}" /> </button>
+                        <button class='w-fit h-fit mx-auto py-4' on:click={() => {changeOption(3);}}> <Settings className="m-auto w-[40px] h-[40px] {newPokemon?.dateCreated && newPokemon?.dateEnded ? "fill-green-500" : ""}" /> </button>
                     </div>
                     <button class='mt-auto rounded-xl py-2' on:click={async() => { 
                         if (editMode === true) {

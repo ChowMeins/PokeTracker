@@ -163,7 +163,7 @@
     async function updateHunt() {
         let userId: string | null = auth.currentUser ? auth.currentUser.uid : null;
         if (userId && selectedHunt && selectedHunt.docId) {
-            try {
+           try {
                 const huntRef = doc(db, "users", userId, "shinyHunts", selectedHunt.docId);
                 const huntDoc = await getDoc(huntRef);
                 const huntData = huntDoc.data();
@@ -194,7 +194,7 @@
                                 isLoaded: store.isLoaded
                             }
                         });
-                        console.log('Updated Shiny Hunt!');
+                        notificationStore.enqueue({message: 'Shiny Hunt successfully updated!', color: "#00FF00", timeout: 3000});
                     }
                 }
             } catch (error) {
@@ -323,9 +323,11 @@
                     <div class='flex gap-2'>
                         <button class='w-fit h-fit p-1 hover:bg-gray-600 text-sm text-white rounded-full' on:click={() => {showDescription = (!showDescription)}}> <QuestionMark className='w-[32px] h-[32px]'/> </button>
                         <button class='w-fit h-fit p-1 hover:bg-gray-600 text-sm text-white rounded-full' on:click={() =>{
-                            resetNewShinyHunt();
-                            editMode = true;
-                            displayModal('poke-modal');
+                            if (selectedHunt) {
+                                newShinyHunt = selectedHunt ?? null;
+                                editMode = true;
+                                displayModal('poke-modal');
+                            }
                         }}> <Edit className='w-[32px] h-[32px]' /> </button>
                         <button class='w-fit h-fit ml-auto p-1 hover:bg-gray-600 text-md text-white rounded-full' on:click={() =>{ displayModal('hunt-modal'); }}> <Close className="w-[32px] h-[32px]" color='' /> </button>
                     </div>
@@ -453,7 +455,7 @@
                                 <div class='px-4 text-left'>
                                 {#each Object.entries(pokemonGames) as [generation, games]}
                                     <h1 class='text-[24px]'> {generation}</h1>
-                                    <div class='grid grid-cols-3 max-sm:grid-cols-1 py-4 gap-4'>
+                                    <div class='grid grid-cols-3 max-sm:grid-cols-1 pb-4 gap-4'>
                                     {#each games as game}
                                         <button class='p-1 text-center text-[18px] border-2 rounded-xl {newShinyHunt?.game == game ? 'border-green-400 text-green-400' : "" }' on:click={()=>{newShinyHunt.game = game; option = 2;}}> {game} </button>
                                     {/each}
@@ -462,7 +464,7 @@
                                 </div>
                             <!-- Method Selector -->
                             {:else if option == 2}
-                            <div class='grid grid-cols-2 max-sm:grid-cols-1 gap-8 px-4 py-4'>
+                            <div class='grid grid-cols-2 max-sm:grid-cols-1 gap-8 px-4 pb-4'>
                                 {#each encounterMethods as method}
                                     <button class='border-2 rounded-xl {newShinyHunt?.method == method ? 'border-green-400 text-green-400' : "" }' on:click={() => {newShinyHunt.method = method}}> {method} </button>
                                 {/each}
