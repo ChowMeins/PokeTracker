@@ -177,6 +177,7 @@
                     ) {
                         console.log('No changes made!');
                     } else {
+                        console.log(huntData, newShinyHunt);
                         await updateDoc(huntRef, {
                             pokemon: newShinyHunt.pokemon,
                             game: newShinyHunt.game,
@@ -422,7 +423,7 @@
                 <div class="w-full h-full flex flex-col">
                     <!-- Search Bar and Close Button (Static) -->
                     <div class='w-full h-fit flex flex-col '>
-                        <button class='w-fit h-fit ml-auto mr-2 my-2 p-1 hover:bg-gray-600 rounded-full' on:click={() => {displayModal('poke-modal'); newShinyHunt.pokemon = null; newShinyHunt.game = null; newShinyHunt.method = null; option = 0;}}> <Close className='w-[32px] h-[32px]' color=''/> </button>
+                        <button class='w-fit h-fit ml-auto mr-2 my-2 p-1 hover:bg-gray-600 rounded-full' on:click={() => {displayModal('poke-modal'); option = 0;}}> <Close className='w-[32px] h-[32px]' color=''/> </button>
                         {#if option === 0}
                         <input type='text' bind:value={searchCriteria} on:input={filteredPokemonList} class='w-[92%] mx-auto text-sm rounded-full m-1 px-3 py-1 border-none' placeholder="Search Pokémon..."/>
                         {/if}
