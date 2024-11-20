@@ -489,7 +489,7 @@
                 <img src={selectedHunt?.pokemon?.spriteUrl} alt='Pokemon Sprite' class='w-1/2 mx-auto'/>
                 <!-- Show Description -->
                 {#if showDescription && selectedHunt}
-                    <div class='absolute overflow-y-auto w-full h-fit top-0 text-sm font-semibold bg-gray-600 drop-shadow-md'>
+                    <div class='absolute overflow-y-auto w-full h-fit top-0 text-sm font-semibold bg-gray-600 rounded-xl drop-shadow-md'>
                         <div class='w-full flex flex-col'>
                             <button class='w-fit ml-auto p-1 m-1 rounded-full hover:bg-gray-700' on:click={() => {showDescription = false;}}><Close className='w-[24px] h-[24px]' color='' /> </button>
                             <p class='p-4 text-white border-t-2 border-[#a1a1a1]'> <span class='text-red-200'> Nickname: </span>{selectedHunt.nickname != '' ? selectedHunt.nickname : 'N/A'} </p>
@@ -504,7 +504,7 @@
                 
                 <!-- EV Window -->
                 {#if showEVs}
-                    <div class='w-full h-fit bottom-0 pb-3 text-sm font-semibold bg-gray-600 rounded-xl drop-shadow-md'>
+                    <div class='absolute overflow-y-auto w-full h-fit bottom-0 pb-3 text-sm font-semibold bg-gray-600 rounded-xl drop-shadow-md'>
                         <div class='w-full flex py-2 px-3'>
                             <p class='text-white my-auto'> Remaining EVs: {remaining} </p>
                             <label class='ml-auto my-auto text-md text-white font-semibold mr-2'> Increment Count: <input type='number' min=0 max=252 bind:value={incrementCount} class='w-[5ch] text-black rounded-sm'/> </label>

@@ -91,7 +91,7 @@
                     }
                 }}> Change Password </button> 
             </p>
-            <button class='w-fit mt-4 flex my-auto p-2 text-centertext-2xl font-semibold bg-gray-600 rounded-xl' on:click={authHandler.logout}> <Signout className="w-[32px] h-[32px]"/> <p class='w-full my-auto'>Logout</p> </button>
+            <button class='w-fit my-4 flex p-2 text-centertext-2xl font-semibold bg-gray-600 rounded-xl' on:click={authHandler.logout}> <Signout className="w-[32px] h-[32px]"/> <p class='w-full my-auto'>Logout</p> </button>
         </div>
     </div>
 
