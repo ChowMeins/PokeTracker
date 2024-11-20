@@ -431,10 +431,10 @@
     });
 </script>
 
-<div class='w-full flex flex-col flex-grow overflow-y-auto'>
-    <div class='w-full flex px-4 py-4 gap-4 bg-[#212529]'> 
-        <button class='w-fit h-fit my-auto text-sm rounded-full border-2' on:click={()=>{displayModal('new-poke-modal')}}> <Plus className='w-4 h-4 stroke-green-400' /> </button>
-        <input type='text' placeholder="Search..." bind:value={searchCriteria} on:input={() => {filterCollection(searchCriteria)}} class='w-full px-4 py-2 text-black text-sm font-semibold rounded-full outline-none border-2 focus:border-red-300'/>
+<div class='w-full flex flex-col flex-grow overflow-y-auto bg-[#161A1A]'>
+    <div class='w-full flex bg-[#212529]'> 
+        <button class='w-fit h-full my-auto text-sm pointer' on:click={()=>{displayModal('new-poke-modal')}}> <Plus className='w-[24px] h-[24px] mx-4 rounded-full border-2 border-white stroke-green-400' /> </button>
+        <input type='text' placeholder="Search..." bind:value={searchCriteria} on:input={() => {filterCollection(searchCriteria)}} class='w-full my-3 mr-3 px-4 py-2 text-sm font-semibold rounded-full outline-none border-2 focus:border-red-300'/>
     </div>
     <!-- Current Collection -->
     {#if filteredCollection.length === 0}
@@ -454,7 +454,7 @@
             loadEVs();
             displayModal('poke-modal');
         }}>
-            <div class='w-fit flex flex-col flex-grow text-sm max-lg:text-[15px] max-sm:text-[3vw] text-left text-wrap'>
+            <div class='w-fit flex flex-col flex-grow text-sm max-lg:text-[15px] max-sm:text-[13px] text-left text-wrap'>
                 <p class='w-fit px-2 font-bold text-red-100'> {hunt.pokemon?.name}</p>
                 <p class='w-fit px-2 font-semibold'> #{hunt.pokemon?.id} </p>
             </div>
@@ -477,21 +477,21 @@
             }}>            
             <div class='relative flex flex-col'>
                 <div class='flex px-2 pt-2 gap-2'>
-                    <button class='w-fit p-2 hover:bg-gray-600 text-md text-white rounded-xl' on:click={() => {showDescription = true; showEVs = false;}}> <QuestionMark className="w-[32px] h-fit" /> </button>
+                    <button class='w-fit p-2 hover:bg-gray-600 text-md text-white rounded-xl' on:click={() => {showDescription = true; showEVs = false;}}> <QuestionMark className="w-[32px] h-[32px]" /> </button>
                     <button class='w-fit p-2 hover:bg-gray-600 text-md text-white rounded-xl' on:click={() => {
                         option = 0;
                         editMode = true;
                         displayModal('new-poke-modal');
-                    }}> <Edit className='w-[32px] h-fit' /> </button>
-                    <button class='w-fit ml-auto p-2 hover:bg-gray-600 text-md text-white rounded-xl' on:click={() =>{ displayModal('poke-modal'); showEVs = false;}}> <Close className="w-[32px] h-fit" color=''/> </button>
+                    }}> <Edit className='w-[32px] h-[32px]' /> </button>
+                    <button class='w-fit ml-auto p-2 hover:bg-gray-600 text-md text-white rounded-xl' on:click={() =>{ displayModal('poke-modal'); showEVs = false;}}> <Close className="w-[32px] h-[32px]" color=''/> </button>
                 </div>
                 <p class='text-center text-4xl text-white font-semibold'> {selectedHunt?.pokemon?.name ? selectedHunt.pokemon.name.charAt(0).toUpperCase() + selectedHunt.pokemon.name.slice(1).toLowerCase() : ''}  </p>
                 <img src={selectedHunt?.pokemon?.spriteUrl} alt='Pokemon Sprite' class='w-1/2 mx-auto'/>
                 <!-- Show Description -->
                 {#if showDescription && selectedHunt}
-                    <div class='absolute overflow-y-auto w-full h-fit max-sm:h-3/4 top-0 text-sm font-semibold bg-gray-600 drop-shadow-md'>
+                    <div class='absolute overflow-y-auto w-full h-fit top-0 text-sm font-semibold bg-gray-600 drop-shadow-md'>
                         <div class='w-full flex flex-col'>
-                            <button class='w-fit ml-auto p-1 m-1 rounded-full hover:bg-gray-700' on:click={() => {showDescription = false;}}><Close className='w-[24px] h-auto' color='' /> </button>
+                            <button class='w-fit ml-auto p-1 m-1 rounded-full hover:bg-gray-700' on:click={() => {showDescription = false;}}><Close className='w-[24px] h-[24px]' color='' /> </button>
                             <p class='p-4 text-white border-t-2 border-[#a1a1a1]'> <span class='text-red-200'> Nickname: </span>{selectedHunt.nickname != '' ? selectedHunt.nickname : 'N/A'} </p>
                             <p class='p-4 text-white border-t-2 border-[#a1a1a1]'> <span class='text-red-200'> Game: </span>{selectedHunt.game} </p>
                             <p class='p-4 text-white border-t-2 border-[#a1a1a1]'> <span class='text-red-200'> Method: </span> {selectedHunt.method} </p>
@@ -504,90 +504,90 @@
                 
                 <!-- EV Window -->
                 {#if showEVs}
-                    <div class='absolute overflow-y-auto w-full h-fit max-sm:h-3/4 bottom-0 pb-3 text-sm font-semibold bg-gray-600 drop-shadow-md'>
+                    <div class='w-full h-fit bottom-0 pb-3 text-sm font-semibold bg-gray-600 rounded-xl drop-shadow-md'>
                         <div class='w-full flex py-2 px-3'>
                             <p class='text-white my-auto'> Remaining EVs: {remaining} </p>
-                            <label class='ml-auto my-auto text-md text-white font-semibold mr-2'> Increment Count: <input type='number' min=0 max=252 bind:value={incrementCount} class='w-[5ch] text-black'/> </label>
-                            <button class='w-fit rounded-full p-2 hover:bg-gray-500' on:click={() => {showEVs = false;}}> <Close className='w-[32px] h-fit' color=''/> </button>
+                            <label class='ml-auto my-auto text-md text-white font-semibold mr-2'> Increment Count: <input type='number' min=0 max=252 bind:value={incrementCount} class='w-[5ch] text-black rounded-sm'/> </label>
+                            <button class='w-fit rounded-full p-2 hover:bg-gray-500' on:click={() => {showEVs = false;}}> <Close className='w-[32px] h-[32px]' color=''/> </button>
                         </div> <hr class='border-1 border-[#b1b1b1]'/>
                         <!-- HP Stat -->
                         <div class='w-full h-fit flex mt-3 px-3 gap-3'>
                             <p class='min-w-[7ch] h-full my-auto text-white'> HP: </p>
-                            <input type='number' min=0 max="252" bind:value={hp} on:input={() => {updateSlider('hp-slider')}} class='w-fit h-fit my-auto'>
+                            <input type='number' min=0 max="252" bind:value={hp} on:input={() => {updateSlider('hp-slider')}} class='w-fit h-fit my-auto rounded-sm'>
                             <input id='hp-slider' type="range" max="252" bind:value={hp} class='slider w-full min-w-[64px]' on:input={() => {updateSlider('hp-slider');}}/>
-                            <button class='w-[25px] min-w-[25px] h-fit' on:click={() => {
-                                calcEV('hp', incrementCount * -1); updateSlider('hp-slider'); }}> <Decrement className="w-full h-fit"/> 
+                            <button class='w-fit h-fit touch-manipulation' on:click={() => {
+                                calcEV('hp', incrementCount * -1); updateSlider('hp-slider'); }}> <Decrement className="w-[24px] h-[24px]"/> 
                             </button>
-                            <button class='w-[25px] min-w-[25px] h-fit' on:click={() => {
-                                calcEV('hp', incrementCount); updateSlider('hp-slider'); }}> <Increment className="w-full h-fit" /> 
+                            <button class='w-fit h-fit touch-manipulation' on:click={() => {
+                                calcEV('hp', incrementCount); updateSlider('hp-slider'); }}> <Increment className="w-[24px] h-[24px]" /> 
                             </button>
                         </div> 
                         <!-- Attack Stat -->
                         <div class='w-full h-fit flex mt-3 px-3 gap-3'>
                             <p class='min-w-[7ch] h-fit text-white my-auto'> Attack: </p>
-                            <input type='number' min=0 max="252" bind:value={attack} class='w-fit h-fit my-auto'>
+                            <input type='number' min=0 max="252" bind:value={attack} class='w-fit h-fit my-auto rounded-sm'>
                             <input id='atk-slider' type="range" max="252" bind:value={attack} class='slider w-full' on:input={() => {
                                 updateSlider('atk-slider');
                             }}/>
-                            <button class='w-[25px] min-w-[25px] h-fit' on:click={() => {
-                                calcEV('atk', incrementCount * -1); updateSlider('atk-slider');}}> <Decrement className="w-full h-fit"/> 
+                            <button class='w-fit h-fit' on:click={() => {
+                                calcEV('atk', incrementCount * -1); updateSlider('atk-slider');}}> <Decrement className="w-[24px] h-[24px]"/> 
                             </button>
-                            <button class='w-[25px] min-w-[25px] h-fit' on:click={() => {
-                                calcEV('atk', incrementCount); updateSlider('atk-slider');}}> <Increment className="w-full h-fit" /> 
+                            <button class='w-fit h-fit' on:click={() => {
+                                calcEV('atk', incrementCount); updateSlider('atk-slider');}}> <Increment className="w-[24px] h-[24px]" /> 
                             </button>
                         </div> 
                         <!-- Defense Stat -->
                         <div class='w-full h-fit flex mt-3 px-3 gap-3'>
                             <p class='min-w-[7ch] text-white'> Defense: </p>
-                            <input type='number' min=0 max="252"  bind:value={defense} class='w-fit'>
+                            <input type='number' min=0 max="252"  bind:value={defense} class='w-fit h-fit my-auto rounded-sm'>
                             <input id='def-slider' type="range" max="252" bind:value={defense} class='slider w-full' on:input={() => {
                                 updateSlider('def-slider');
                             }}/>
-                            <button class='w-[25px] min-w-[25px] h-fit' on:click={() => {
-                                calcEV('def', incrementCount * -1); updateSlider('def-slider');}}> <Decrement className="w-full h-fit" /> </button>
-                            <button class='w-[25px] min-w-[25px] h-fit' on:click={() => {
-                                calcEV('def', incrementCount); updateSlider('def-slider');}}> <Increment className="w-full h-fit" /> </button>
+                            <button class='w-fit h-fit touch-manipulation' on:click={() => {
+                                calcEV('def', incrementCount * -1); updateSlider('def-slider');}}> <Decrement className="w-[24px] h-[24px]" /> </button>
+                            <button class='w-fit h-fit touch-manipulation' on:click={() => {
+                                calcEV('def', incrementCount); updateSlider('def-slider');}}> <Increment className="w-[24px] h-[24px]" /> </button>
                         </div> 
                         <!-- Sp. Attack Stat -->
                         <div class='w-full h-fit flex mt-3 px-3 gap-3'>
                             <p class='min-w-[7ch] text-white'> Sp. Atk: </p>
-                            <input type='number' min=0 max="252" bind:value={spAttack} class='w-fit'>
+                            <input type='number' min=0 max="252" bind:value={spAttack} class='w-fit h-fit my-auto rounded-sm'>
                             <input id='spatk-slider' type="range" max="252" bind:value={spAttack} class='slider w-full' on:input={() => {
                                 updateSlider('spatk-slider');
                             }}/>
-                            <button class='w-[25px] min-w-[25px] h-fit' on:click={() => {
-                                calcEV('spAtk', incrementCount * -1); updateSlider('spatk-slider');}}> <Decrement className="w-full h-fit" /> </button>
-                            <button class='w-[25px] min-w-[25px] h-fit' on:click={() => {
-                                calcEV('spAtk', incrementCount); updateSlider('spatk-slider');}}> <Increment className="w-full h-fit" /> </button>
+                            <button class='w-fit h-fit touch-manipulation' on:click={() => {
+                                calcEV('spAtk', incrementCount * -1); updateSlider('spatk-slider');}}> <Decrement className="w-[24px] h-[24px]" /> </button>
+                            <button class='w-fit h-fit touch-manipulation' on:click={() => {
+                                calcEV('spAtk', incrementCount); updateSlider('spatk-slider');}}> <Increment className="w-[24px] h-[24px]" /> </button>
                         </div> 
                         <!-- Sp. Defense Stat -->
                         <div class='w-full h-fit mt-3 flex px-3 gap-3'>
                             <p class='min-w-[7ch] text-white'> Sp. Def: </p>
-                            <input type='number' min=0 max="252" bind:value={spDefense} class='w-fit'>
+                            <input type='number' min=0 max="252" bind:value={spDefense} class='w-fit h-fit my-auto rounded-sm'>
                             <input id='spdef-slider' type="range" max="252" bind:value={spDefense} class='slider w-full' on:input={() => {
                                 updateSlider('spdef-slider');
                             }}/>
-                            <button class='w-[25px] min-w-[25px] h-fit' on:click={() => {
-                                calcEV('spDef', incrementCount * -1); updateSlider('spdef-slider');}}> <Decrement className="w-full h-fit" /> </button>
-                            <button class='w-[25px] min-w-[25px] h-fit' on:click={() => {
-                                calcEV('spDef', incrementCount); updateSlider('spdef-slider');}}> <Increment className="w-full h-fit" /> </button>
+                            <button class='w-fit h-fit touch-manipulation' on:click={() => {
+                                calcEV('spDef', incrementCount * -1); updateSlider('spdef-slider');}}> <Decrement className="w-[24px] h-[24px]" /> </button>
+                            <button class='w-fit h-fit touch-manipulation' on:click={() => {
+                                calcEV('spDef', incrementCount); updateSlider('spdef-slider');}}> <Increment className="w-[24px] h-[24px]" /> </button>
                         </div> 
                         <!-- Speed Stat -->
                         <div class='w-full h-fit mt-3 flex px-3 gap-3'>
                             <p class='min-w-[7ch] text-white'> Speed: </p>
-                            <input type='number' min=0 max="252" bind:value={speed} />
+                            <input type='number' min=0 max="252" bind:value={speed} class='w-fit h-fit my-auto rounded-sm'/>
                             <input id='speed-slider' type="range" bind:value={speed} max="252" class='slider w-full' on:input={() => {
                                 updateSlider('speed-slider');
                             }}/>
-                            <button class='w-[25px] min-w-[25px] h-fit' on:click={() => {
-                                calcEV('speed', incrementCount * -1); updateSlider('speed-slider');}}> <Decrement className="w-full h-fit" /> </button>
-                            <button class='w-[25px] min-w-[25px] h-fit' on:click={() => {
-                                calcEV('speed', incrementCount); updateSlider('speed-slider');}}> <Increment className="w-full h-fit" /> </button>
+                            <button class='w-fit h-fit touch-manipulation' on:click={() => {
+                                calcEV('speed', incrementCount * -1); updateSlider('speed-slider');}}> <Decrement className="w-[24px] h-[24px]" /> </button>
+                            <button class='w-fit h-fit touch-manipulation' on:click={() => {
+                                calcEV('speed', incrementCount); updateSlider('speed-slider');}}> <Increment className="w-[24px] h-[24px]" /> </button>
                         </div> 
                     </div>
                 {/if}
                 <div class='flex h-full mt-auto p-2'>
-                    <button class='w-fit hover:bg-gray-600 text-md text-white rounded-xl' on:click={() => {showEVs = true; showDescription = false;}}> <Filter className='w-[32px] h-fit'/> </button>
+                    <button class='w-fit hover:bg-gray-600 text-md text-white rounded-xl' on:click={() => {showEVs = !showEVs; showDescription = false;}}> <Filter className='w-[32px] h-[32px]'/> </button>
                     <button class='w-fit hover:bg-gray-600 ml-auto p-1 rounded-xl' title="Delete Pokémon" on:click={async () => {
                         const result = confirm("Delete Pokemon from your collection?");
                         if (result) {
@@ -601,7 +601,7 @@
 
                             }
                         };
-                    }}> <Trashcan className="w-[32px] h-fit"/> </button>
+                    }}> <Trashcan className="w-[32px] h-[32px]"/> </button>
                     
                 </div>
             </div>

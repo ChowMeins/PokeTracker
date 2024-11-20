@@ -11,7 +11,6 @@
     import notiQueue from '../../components/notiStack.svelte';
     
     // SVG's
-	import Checkmark from '../../components/svg/checkmark.svelte';
 	import Plus from '../../components/svg/plus.svelte';
 	import Grass from '../../components/svg/grass.svelte';
 	import Gameboy from '../../components/svg/gameboy.svelte';
@@ -290,10 +289,10 @@
 </script>
 
 <!-- Pokemon List -->
- <div class='w-full flex flex-col flex-grow mx-auto text-3xl font-semibold overflow-y-auto'>
-    <div class='w-full flex px-4 py-4 gap-4 bg-[#212529]'> 
-        <button class='h-fit my-auto text-sm rounded-full border-2' title="Add New Shiny Hunt" on:click={()=>{displayModal('poke-modal')}}> <Plus className='w-4 h-4 stroke-green-400' /> </button>
-        <input type='text' placeholder="Search..." bind:value={searchHuntCriteria} on:input={() => {filterHuntList();}} class='w-full px-4 py-2 text-sm rounded-full outline-none border-2 focus:border-red-300'/>
+ <div class='w-full flex flex-col flex-grow mx-auto text-3xl overflow-y-auto bg-[#161A1A] font-semibold'>
+    <div class='w-full flex bg-[#212529]'> 
+        <button class='w-fit h-full my-auto text-sm pointer' title="Add New Shiny Hunt" on:click={()=>{displayModal('poke-modal')}}> <Plus className='w-[24px] h-[24px] mx-4 rounded-full border-2 border-white stroke-green-400' /> </button>
+        <input type='text' placeholder="Search..." bind:value={searchHuntCriteria} on:input={() => {filterHuntList();}} class='w-full my-3 mr-3 px-4 py-2 text-sm rounded-full outline-none border-2 focus:border-red-300'/>
     </div>
         {#if searchHunts.length == 0}
         <div class='w-1/3 max-sm:w-fit border-2 border-grey-600 bg-[#212529] my-auto mx-auto p-[2vw] text-center rounded-xl'>
@@ -309,7 +308,7 @@
                 selectedHunt = hunt; 
                 newShinyHunt = hunt;
                 displayModal('hunt-modal')}}>
-                <div class='w-fit flex flex-col flex-grow text-sm max-lg:text-[15px] max-sm:text-[3vw] text-left text-wrap'>
+                <div class='w-fit flex flex-col flex-grow text-sm max-lg:text-[15px] max-sm:text-[13px] text-left text-wrap'>
                     <p class='w-fit px-2 font-bold text-red-100'> {hunt.pokemon?.name}</p>
                     <p class='w-fit px-2 font-semibold'> #{hunt.pokemon?.id} </p>
                 </div>
@@ -322,25 +321,25 @@
             <dialog id='hunt-modal' class='w-1/3 min-w-[340px] h-fit max-xl:w-2/3 max-md:w-full p-4 bg-[#343A40] rounded-xl' on:close={async () => {await updateHunt(); selectedHunt = null; resetNewShinyHunt(); showDescription = false; editMode = false;}}> 
                 <div class='relative flex flex-col'>
                     <div class='flex gap-2'>
-                        <button class='w-fit h-fit p-1 hover:bg-gray-600 text-sm text-white rounded-full' on:click={() => {showDescription = (!showDescription)}}> <QuestionMark className='w-[32px] h-fit '/> </button>
+                        <button class='w-fit h-fit p-1 hover:bg-gray-600 text-sm text-white rounded-full' on:click={() => {showDescription = (!showDescription)}}> <QuestionMark className='w-[32px] h-[32px]'/> </button>
                         <button class='w-fit h-fit p-1 hover:bg-gray-600 text-sm text-white rounded-full' on:click={() =>{
                             resetNewShinyHunt();
                             editMode = true;
                             displayModal('poke-modal');
-                        }}> <Edit className='w-[32px] h-fit' /> </button>
-                        <button class='w-fit h-fit ml-auto p-1 hover:bg-gray-600 text-md text-white rounded-full' on:click={() =>{ displayModal('hunt-modal'); }}> <Close className="w-[32px] h-fit" color='' /> </button>
+                        }}> <Edit className='w-[32px] h-[32px]' /> </button>
+                        <button class='w-fit h-fit ml-auto p-1 hover:bg-gray-600 text-md text-white rounded-full' on:click={() =>{ displayModal('hunt-modal'); }}> <Close className="w-[32px] h-[32px]" color='' /> </button>
                     </div>
-                    <div class='flex flex-col text-center my-8 text-white bg-[#343A40]'>
+                    <div class='flex flex-col text-center mb-4 text-white bg-[#343A40]'>
                         <p> {selectedHunt?.pokemon?.name ? selectedHunt.pokemon.name.charAt(0).toUpperCase() + selectedHunt.pokemon.name.slice(1).toLowerCase() : ''}</p>
                         <img src={selectedHunt?.pokemon?.spriteUrl} alt='Pokemon Sprite' class='w-1/2 mx-auto'/>
-                        <div class='w-full mt-16 gap-8 flex justify-center'>
-                            <button class='w-1/5 min-w-[30px] select-none' on:click={() => {if (selectedHunt && (newShinyHunt.encounters - incrementCount >= 0)) { selectedHunt.encounters -= incrementCount}}}> <Decrement className="w-full"/> </button>
-                            <p class='w-full h-full my-auto bg-white text-5xl max-sm:text-md text-center rounded-xl text-black'> { newShinyHunt.encounters }</p>
-                            <button class='w-1/5 min-w-[30px] select-none' on:click={() => {if (selectedHunt) { newShinyHunt.encounters += incrementCount}}}> <Increment className="w-full"/> </button>
+                        <div class='w-full mt-8 flex justify-evenly'>
+                            <button class='w-fit select-none touch-manipulation' on:click={() => {if (selectedHunt && (newShinyHunt.encounters - incrementCount >= 0)) { newShinyHunt.encounters -= incrementCount}}}> <Decrement className="w-[56px] h-[56px] mx-auto"/> </button>
+                            <p class='w-full h-full my-auto mx-4 bg-white text-5xl max-sm:text-md text-center rounded-md text-black'> { newShinyHunt.encounters }</p>
+                            <button class='w-fit select-none touch-manipulation' on:click={() => {if (selectedHunt) { newShinyHunt.encounters += incrementCount}}}> <Increment className="w-[56px] h-[56px] mx-auto"/> </button>
                         </div>
                     </div>
                     <div class='flex'>
-                        <button class='w-[10%] max-sm:w-1/6 max-sm:min-w-1/5 mr-auto rounded-xl p-2 hover:bg-gray-600' on:click={async () => {
+                        <button class='w-fit mr-auto rounded-xl p-2 touch-manipulation hover:bg-gray-600' on:click={async () => {
                             const option = confirm("Pressing \"OK\" will complete the hunt. Continue?")
                             if (option) {
                                 await completeHunt();
@@ -349,20 +348,20 @@
                                 searchHunts = currentHunts;
                                 selectedHunt = null;
                                 showDescription = false;
-                            }}}> <Flag className='w-full min-w-[20px] h-fit mx-auto'/> </button>
-                        <button class='w-[10%] max-sm:w-1/6 max-sm:min-w-1/5 ml-auto rounded-xl p-2 hover:bg-gray-600' on:click={async () => {
+                            }}}> <Flag className='w-[44px] h-[44px] mx-auto'/> </button>
+                        <button class='w-fit rounded-xl p-2 touch-manipulation hover:bg-gray-600' on:click={async () => {
                             const result = confirm("Do you want to delete this hunt?");
                             if (result) {
                                 await deleteHunt();
                                 displayModal('hunt-modal')
                             }
-                        }}> <Trashcan className="w-full min-w-[20px] h-fit mx-auto" /> </button>
+                        }}> <Trashcan className="w-[44px] h-[44px] mx-auto" /> </button>
                     </div>
                 </div>
             <!-- Description of hunt -->
                 {#if showDescription}
-                <div class='w-full h-fit max-sm:h-1/2 absolute flex flex-col top-0 left-0 z-[1]  text-sm text-gray-100 bg-[#69747c] drop-shadow-lg' transition:slide={{ axis: 'y' }}>
-                    <button class='w-fit ml-auto m-1 p-1 text-xl rounded-full hover:bg-gray-600' on:click={() => {showDescription = false;}}> <Close className="w-[24px] h-fit ml-auto" color=''/> </button>
+                <div class='w-full h-fit absolute flex flex-col top-0 left-0 z-[1] text-sm text-gray-100 bg-[#69747c] rounded-xl drop-shadow-lg' transition:slide={{ axis: 'y' }}>
+                    <button class='w-fit ml-auto m-1 p-1 text-xl rounded-full hover:bg-gray-600' on:click={() => {showDescription = false;}}> <Close className="w-[24px] h-[24px] ml-auto" color=''/> </button>
                     <p class='h-fit my-auto py-3 border-t-2 border-[#a4a4a4] px-4'> <span class='text-red-200'> Game: </span> {selectedHunt?.game} </p>
                     <p class='h-fit my-auto py-3 border-t-2 border-[#a4a4a4] px-4'> <span class='text-red-200'> Method: </span> {selectedHunt?.method} </p>
                     <p class='h-fit my-auto py-3 border-t-2 border-[#a4a4a4] px-4'> <span class='text-red-200'> Encounters: </span> {selectedHunt?.encounters} </p>
@@ -420,10 +419,10 @@
                 <!-- Right Side of Hunt Menu -->
                 <div class="w-full h-full flex flex-col">
                     <!-- Search Bar and Close Button (Static) -->
-                    <div class='w-full h-fit flex flex-col px-4'>
-                        <button class='w-[3%] max-xl:w-[5%] max-sm:w-[10%] my-2 p-1 h-fit ml-auto hover:bg-gray-600 rounded-full' on:click={() => {displayModal('poke-modal'); newShinyHunt.pokemon = null; newShinyHunt.game = null; newShinyHunt.method = null; option = 0;}}> <Close className='w-full h-fit' color=''/> </button>
+                    <div class='w-full h-fit flex flex-col '>
+                        <button class='w-fit h-fit ml-auto mr-2 my-2 p-1 hover:bg-gray-600 rounded-full' on:click={() => {displayModal('poke-modal'); newShinyHunt.pokemon = null; newShinyHunt.game = null; newShinyHunt.method = null; option = 0;}}> <Close className='w-[32px] h-[32px]' color=''/> </button>
                         {#if option === 0}
-                        <input type='text' bind:value={searchCriteria} on:input={filteredPokemonList} class='w-full mx-auto text-sm rounded-full m-1 px-3 py-1 border-none' placeholder="Search Pokémon..."/>
+                        <input type='text' bind:value={searchCriteria} on:input={filteredPokemonList} class='w-[92%] mx-auto text-sm rounded-full m-1 px-3 py-1 border-none' placeholder="Search Pokémon..."/>
                         {/if}
                     </div>
                 

@@ -52,7 +52,7 @@
 
 </script>
 
-<div class='min-w-[340px] min-h-dvh max-h-dvh flex flex-row max-lg:flex-col max-sm:flex-col-reverse'>
+<div class='min-w-[240px] min-h-dvh max-h-dvh flex flex-row max-lg:flex-col max-sm:flex-col-reverse'>
     {#if currentUser && $page.url.pathname != '/'}
         <Navbar/>
     {/if}

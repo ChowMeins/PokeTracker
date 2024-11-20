@@ -27,7 +27,7 @@
 </script>
 
 <div class='w-full min-h-screen flex text-black'>
-    <div class='w-1/4 max-xl:w-1/3 max-lg:w max-md:w-2/3 h-fit my-auto mx-auto flex flex-col-reverse drop-shadow-md rounded-xl overflow-hidden'>
+    <div class='w-[40%] max-xl:w-1/2 max-lg:w-2/3 max-md:w-4/5 max-sm:w-[90%] h-fit my-auto mx-auto flex flex-col-reverse drop-shadow-md rounded-xl overflow-hidden'>
         <form class='w-full h-fit flex flex-col my-auto mx-auto p-8 bg-[#394047] text-white'>
             <h1 class='roboto-bold text-center text-4xl'> Login </h1>
             <label class='flex flex-col mt-8 font-semibold'> Email <input type='email' bind:value={loginEmail} autocomplete="on" class='p-1 text-black font-semibold bg-gray-100 rounded-md'> </label>
